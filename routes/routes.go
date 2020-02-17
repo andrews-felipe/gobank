@@ -1,25 +1,23 @@
+package routes
+
 import (
 	"log"
-	"net/http"
 
 	"github.com/gorilla/mux"
 
 )
 
-func main() {
-    router := mux.NewRouter()
-    // Create
-    router.HandleFunc("/transfers", getTransfers).Methods("POST")
-    // Read
-    router.HandleFunc("/orders/{orderId}", getOrder).Methods("GET")
-    // Read-all
-    router.HandleFunc("/orders", getOrders).Methods("GET")
-    // Update
-    router.HandleFunc("/orders/{orderId}", updateOrder).Methods("PUT")
-    // Delete
-    router.HandleFunc("/orders/{orderId}", deleteOrder).Methods("DELETE")
-    // Initialize db connection
-    initDB()
+func initialize() {
+	router := mux.NewRouter()
+	// obtém a lista de transferencias
+	router.HandleFunc("/transfers", getTransfers).Methods("GET")
+	// faz transferencia de um Account para outro
+	router.HandleFunc("/transfers", sendTransfer).Methods("POST")
+	// obtém a lista de contas
+	router.HandleFunc("/accounts", getAccounts).Methods("GET")
+	// obtém o saldo da conta
+	router.HandleFunc("/accounts/{account_id}/balance", getBallance).Methods("GET")
+	// criar uma conta
+	router.HandleFunc("/accounts", createAccount).Methods("POST")
 
-    log.Fatal(http.ListenAndServe(":8080", router))
 }
