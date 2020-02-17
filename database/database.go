@@ -9,6 +9,11 @@ import (
 
 )
 
+var db *gorm.DB
+
+/**
+ *	Inicialização do banco de dados
+ */
 func initialize() {
 	// Iniciando banco de dados
 	var err error

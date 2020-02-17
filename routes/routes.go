@@ -1,12 +1,15 @@
 package routes
 
 import (
-	"log"
+	"gobank/domain"
 
 	"github.com/gorilla/mux"
 
 )
 
+/**
+ *	Inicialização de rotas
+ */
 func initialize() {
 	router := mux.NewRouter()
 	// obtém a lista de transferencias

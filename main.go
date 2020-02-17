@@ -1,18 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"gobank/database"
 	"gobank/models"
 	"gobank/routes"
+	"log"
 	"net/http"
 
 )
 
-var db *gorm.DB
-
 /**
- *	Inicialização do banco de dados
+ *	Bootstrap
  */
 func main() {
 
@@ -22,6 +20,5 @@ func main() {
 	// Iniciando conexão com o banco de dados
 	database.initialize()
 
-	//
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
