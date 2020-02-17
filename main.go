@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"gobank/database"
 	"gobank/models"
-
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gobank/routes"
+	"net/http"
 
 )
 
@@ -14,20 +14,14 @@ var db *gorm.DB
 /**
  *	Inicialização do banco de dados
  */
-func initDB() {
-	var err error
-	dataSourceName := "root:@tcp(localhost:3306)/?parseTime=True"
-	db, err = gorm.Open("mysql", dataSourceName)
+func main() {
 
-	if err != nil {
-		fmt.Println(err)
-		panic("falha na conexão com o banco de dados")
-	}
+	// Iniciando rotas
+	routes.initialize()
 
-	// Criando bando de dados
-	db.Exec("CREATE DATABASE gobank_db")
-	db.Exec("USE gobank_db")
+	// Iniciando conexão com o banco de dados
+	database.initialize()
 
-	// migration pra criação dos schemas
-	db.AutoMigrate(&Account{}, &Transfer{})
+	//
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
