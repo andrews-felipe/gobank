@@ -1,11 +1,8 @@
 package main
 
 import (
-	"gobank/database"
-	"gobank/models"
-	"gobank/routes"
-	"log"
-	"net/http"
+	database "gobank/database"
+	 "gobank/routes"
 
 )
 
@@ -14,11 +11,11 @@ import (
  */
 func main() {
 
-	// Iniciando rotas
-	routes.initialize()
-
 	// Iniciando conexão com o banco de dados
-	database.initialize()
+	
+	// Iniciando rotas
+	routes.Initialize()
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	database.Initialize()
+	
 }

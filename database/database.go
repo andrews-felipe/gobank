@@ -14,10 +14,10 @@ var db *gorm.DB
 /**
  *	Inicialização do banco de dados
  */
-func initialize() {
+func Initialize() {
 	// Iniciando banco de dados
 	var err error
-	dataSourceName := "root:@tcp(localhost:3306)/?parseTime=True"
+	dataSourceName := "root:123456@tcp(localhost:3306)/?parseTime=True"
 	db, err = gorm.Open("mysql", dataSourceName)
 
 	if err != nil {
@@ -30,5 +30,5 @@ func initialize() {
 	db.Exec("USE gobank_db")
 
 	// migration pra criação dos schemas
-	db.AutoMigrate(&Account{}, &Transfer{})
+	db.AutoMigrate(&models.Account{}, &models.Transfer{})
 }

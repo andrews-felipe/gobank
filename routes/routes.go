@@ -1,7 +1,9 @@
 package routes
 
 import (
-	"gobank/domain"
+	 "gobank/domain"
+	 "log"
+	 "net/http"
 
 	"github.com/gorilla/mux"
 
@@ -10,17 +12,21 @@ import (
 /**
  *	Inicialização de rotas
  */
-func initialize() {
+func Initialize() {
 	router := mux.NewRouter()
 	// obtém a lista de transferencias
-	router.HandleFunc("/transfers", getTransfers).Methods("GET")
+	router.HandleFunc("/transfers", domain.GetTransfers).Methods("GET")
 	// faz transferencia de um Account para outro
-	router.HandleFunc("/transfers", sendTransfer).Methods("POST")
+	router.HandleFunc("/transfers", domain.SendTransfer).Methods("POST")
 	// obtém a lista de contas
-	router.HandleFunc("/accounts", getAccounts).Methods("GET")
+	router.HandleFunc("/accounts", domain.getAccounts).Methods("GET")
 	// obtém o saldo da conta
-	router.HandleFunc("/accounts/{account_id}/balance", getBallance).Methods("GET")
+	router.HandleFunc("/accounts/{account_id}/balance", domain.GetBallance).Methods("GET")
+	
 	// criar uma conta
-	router.HandleFunc("/accounts", createAccount).Methods("POST")
+	router.HandleFunc("/accounts", domain.CreateAccount).Methods("POST")
+	
+	log.Fatal(http.ListenAndServe(":8080", router))
+
 
 }
